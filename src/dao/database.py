@@ -1,7 +1,7 @@
 import mariadb
 from os import getenv
 from dotenv import load_dotenv, find_dotenv
-from model import model
+from model import base_chx
 load_dotenv(find_dotenv())
 
 class rdbms:
@@ -31,7 +31,7 @@ class rdbms:
             self.cur.execute(sql, data)
             self.cnx.commit()
     def model_chx(self):
-        print(self.query(model[0], model[1], row=1))
+        print(self.query(base_chx, ('empleado', 'telefono'), row=1))
     
 db = rdbms(                 # why still have ts warnings idk
     host= getenv('HOST'),  # type: ignore
