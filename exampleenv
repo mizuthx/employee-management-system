@@ -1,0 +1,5 @@
+HOST = ''
+NAME = ''
+PASSWD = ''
+DATABASE = ''
+PORT = 3306
