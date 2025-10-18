@@ -11,9 +11,7 @@ elif platform.system() == 'Linux':
     
 class ems:
     
-    def __init__(self):
-        pass
-    
+    # INPUT FUNCTION
     @classmethod
     def x_input(cls, name:str = 'Opcion', tipo:bool = False):
         if tipo == False:
@@ -37,7 +35,7 @@ class ems:
     def empleados(cls):
         menu:str = ("""
 ========== Empleados ==========
-1. Listar 
+1. Listar
 2. Agregar 
 3. Editar
 4. Eliminar
