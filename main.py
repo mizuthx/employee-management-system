@@ -10,10 +10,6 @@ elif platform.system() == 'Linux':
     termv:str = 'clear'
     
 class ems:
-    
-    def __init__(self):
-        pass
-    
     @classmethod
     def x_input(cls, name:str = 'Opcion', tipo:bool = False):
         if tipo == False:
@@ -34,10 +30,35 @@ class ems:
                 return None
     
     @classmethod
+    def proyectos(cls):
+        menu:str = ("""
+========== Proyectos ==========
+1.  Listar
+2.  Agregar
+3   Editar
+4.  Eliminar
+0.  Volver
+===============================
+""")
+        term(termv)
+        while True:
+            term(termv)
+            print(menu)
+            x = cls.x_input()
+            if x == 1:
+                pass
+            elif x == 2:
+                pass
+            elif x == 3:
+                pass
+            elif x == 0:
+                break
+    
+    @classmethod
     def empleados(cls):
         menu:str = ("""
 ========== Empleados ==========
-1. Listar 
+1. Listar
 2. Agregar 
 3. Editar
 4. Eliminar
@@ -47,7 +68,17 @@ class ems:
         while True:
             term(termv)
             print(menu)
-            input()
+            x = cls.x_input()
+            if x == 1:
+                pass
+            elif x == 2:
+                pass
+            elif x == 3:
+                pass
+            elif x == 4:
+                pass
+            elif x == 0:
+                break
     
     @classmethod
     def main(cls):
@@ -66,9 +97,12 @@ class ems:
             x = cls.x_input()
             if x == 1:
                 cls.empleados()
+            elif x == 2:
+                pass
+            elif x == 3:
+                cls.proyectos()
             elif x == 0:
                 break
-            
             
 if __name__ == '__main__': #when the file is running exec ts below
     ems.main()
