@@ -1,5 +1,5 @@
 #ENV files
 .env
 
-#HIde cache files / folders
+#Hide cache files / folders
 src/dao/__pycache__
