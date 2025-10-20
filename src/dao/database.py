@@ -1,7 +1,7 @@
 import mariadb
 from os import getenv
 from dotenv import load_dotenv, find_dotenv
-from model import base_chx
+from model import base_chx, base
 load_dotenv(find_dotenv())
 
 class rdbms:
@@ -32,11 +32,22 @@ class rdbms:
             self.cnx.commit()
             
     def model_chx(self):
-        self.query(base_chx, ('empleado', 'telefono'), row= 1)
+        self.cur.execute(base_chx, ('empleados', 'registros', 'proyectos', 'departamentos')) # comprueba si existen las tablas de "modelo.erd"
+        tmp = self.cur.fetchall()[0][0] # de una tupla con listas, se asigna el dato de la lista a la variable con doble indice -> ([0,]) -> [0,] -> 0
+        if tmp != 4: 
+            for i in base:
+                self.cur.execute(i)
+            self.cnx.commit()
+        elif tmp == 4:
+            print(f'Tablas encontradas: {tmp}')
+        
+        
+        
+        
     
 db = rdbms(                 # why still have ts warnings ? idk
     host= getenv('HOST'),  # type: ignore
-    user= getenv('NAME'), # type: ignore
+    user= getenv('USER'), # type: ignore
     passwd= getenv('PASSWD'), # type: ignore
     database= getenv('DATABASE'), # type: ignore
     port= int(getenv('PORT')) # type: ignore
