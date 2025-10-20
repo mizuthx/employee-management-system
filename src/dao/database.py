@@ -24,7 +24,7 @@ class rdbms:
         self.cur = self.cnx.cursor()
         
     def query(self, sql:str, data:tuple , row = None, cmt:bool = False):
-        if cmt == False and row != None:
+        if cmt == False and row != None and row == int:
             self.cur.execute(sql,data)
             return self.cur.fetchmany(row)
         elif cmt == True and row == None:
@@ -33,7 +33,7 @@ class rdbms:
     def model_chx(self):
         self.query(base_chx, ('empleado', 'telefono'), row= 1)
     
-db = rdbms(                 # why still have ts warnings idk
+db = rdbms(                 # why still have ts warnings ? idk
     host= getenv('HOST'),  # type: ignore
     user= getenv('NAME'), # type: ignore
     passwd= getenv('PASSWD'), # type: ignore
