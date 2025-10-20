@@ -30,6 +30,7 @@ class rdbms:
         elif cmt == True and row == None:
             self.cur.execute(sql, data)
             self.cnx.commit()
+            
     def model_chx(self):
         self.query(base_chx, ('empleado', 'telefono'), row= 1)
     

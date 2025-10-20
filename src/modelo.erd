@@ -4,8 +4,8 @@
   "settings": {
     "width": 2000,
     "height": 2000,
-    "scrollTop": -194.7184,
-    "scrollLeft": -192.458,
+    "scrollTop": -242,
+    "scrollLeft": -206,
     "zoomLevel": 0.88,
     "show": 511,
     "database": 1,
@@ -116,15 +116,15 @@
           "Tt3OMRTM8LbMeFP_BLGIS"
         ],
         "ui": {
-          "x": 559.8333,
-          "y": 29,
+          "x": 1139.5802,
+          "y": 47.9873,
           "zIndex": 69,
           "widthName": 88,
           "widthComment": 60,
           "color": ""
         },
         "meta": {
-          "updateAt": 1760980621756,
+          "updateAt": 1760985105177,
           "createAt": 1760980508888
         }
       },
@@ -168,23 +168,25 @@
         "columnIds": [
           "0HEm-yNpvS4y_0Azbuxf-",
           "7-Ik_WKLkoSfnviuhXAEd",
-          "rAKeujqOrNWdjJV4Qc6jX"
+          "rAKeujqOrNWdjJV4Qc6jX",
+          "7722nXYhle-Mckv0G0e4Y"
         ],
         "seqColumnIds": [
           "0HEm-yNpvS4y_0Azbuxf-",
           "7-Ik_WKLkoSfnviuhXAEd",
-          "rAKeujqOrNWdjJV4Qc6jX"
+          "rAKeujqOrNWdjJV4Qc6jX",
+          "7722nXYhle-Mckv0G0e4Y"
         ],
         "ui": {
-          "x": 664.7166,
-          "y": 370.4696,
+          "x": 612.8179,
+          "y": 38.824,
           "zIndex": 148,
           "widthName": 60,
           "widthComment": 60,
           "color": ""
         },
         "meta": {
-          "updateAt": 1760981060191,
+          "updateAt": 1760985051262,
           "createAt": 1760981012344
         }
       }
@@ -613,21 +615,41 @@
       "rAKeujqOrNWdjJV4Qc6jX": {
         "id": "rAKeujqOrNWdjJV4Qc6jX",
         "tableId": "Tk9tfJBiZ0hR07-56k3F3",
-        "name": "",
+        "name": "descripticion",
         "comment": "",
-        "dataType": "",
+        "dataType": "VARCHAR(500)",
         "default": "",
-        "options": 0,
+        "options": 8,
         "ui": {
           "keys": 0,
-          "widthName": 60,
+          "widthName": 75,
+          "widthComment": 60,
+          "widthDataType": 90,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1760984725143,
+          "createAt": 1760981060190
+        }
+      },
+      "7722nXYhle-Mckv0G0e4Y": {
+        "id": "7722nXYhle-Mckv0G0e4Y",
+        "tableId": "Tk9tfJBiZ0hR07-56k3F3",
+        "name": "fecha_inicio",
+        "comment": "",
+        "dataType": "DATE",
+        "default": "",
+        "options": 8,
+        "ui": {
+          "keys": 0,
+          "widthName": 70,
           "widthComment": 60,
           "widthDataType": 60,
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1760981060190,
-          "createAt": 1760981060190
+          "updateAt": 1760984815468,
+          "createAt": 1760984727669
         }
       }
     },
