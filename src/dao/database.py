@@ -42,7 +42,7 @@ class rdbms:
             
     def model_chx(self):
         try:
-            self._cur.execute(base_chx, ('empleados', 'registros', 'proyectos', 'departamentos')) # comprueba si existen las tablas de "modelo.erd"
+            self._cur.execute(base_chx, ('empleados', 'registros', 'proyectos', 'departamentos', 'roles')) # comprueba si existen las tablas de "modelo.erd"
             tmp = self._cur.fetchall()[0][0] # de una tupla con listas, se asigna el dato de la lista a la variable con doble indice -> ([0,]) -> [0,] -> 0
             if tmp != 4:
                 for i in base:
@@ -65,4 +65,3 @@ db = rdbms(
 
 if __name__ == '__main__':
     db.model_chx()
-    
