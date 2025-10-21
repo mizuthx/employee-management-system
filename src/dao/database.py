@@ -23,15 +23,22 @@ class rdbms:
         self._cnx = mariadb.connect(**_conf)
         self._cur = self._cnx.cursor()
         
-    def query(self, sql:str, data:tuple , row = None, cmt:bool = False):
+    def query(self, sql:str, data:tuple = () , row = None, cmt:bool = False):
         if cmt == False and row != None and row == int:
             self._cur.execute(sql,data)
-            return self._cur.fetchmany(row)
+            return self._cur.fetchall()
+        elif cmt == False and row == None:
+            self._cur.execute(sql,data)
+            return self._cur.fetchmany(row or int())
         elif cmt == True and row == None:
             self._cur.execute(sql, data)
             self._cnx.commit()
+            
     def rollback(self):
         self._cnx.rollback()
+        
+    def close(self):
+        self._cur.close()
             
     def model_chx(self):
         try:
@@ -58,3 +65,4 @@ db = rdbms(
 
 if __name__ == '__main__':
     db.model_chx()
+    
