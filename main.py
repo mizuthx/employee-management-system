@@ -1,7 +1,7 @@
 import platform
 from os import system as term
 from time import sleep
-
+from src.dao.database import db
 # import class DTO / DAO ?
 
 if platform.system() == 'Windows':
@@ -17,7 +17,8 @@ class ems:
                 tmp = int(input(name + ': '))
                 return tmp
             except ValueError as e:
-                print(f"Entrada no valida \nERROR --> {e}")
+                term(termv)
+                print(f"Entrada no valida\n\n{e}")
                 sleep(2)
                 return None
         elif tipo == True:
@@ -25,7 +26,8 @@ class ems:
                 tmp = str(input(name + ': '))
                 return tmp
             except ValueError as e:
-                print(f"Entrada no valida \nERROR --> {e}")
+                term(termv)
+                print(f"Entrada no validan\n\n{e}")
                 sleep(2)
                 return None
     
@@ -103,6 +105,23 @@ class ems:
                 cls.proyectos()
             elif x == 0:
                 break
+    @staticmethod
+    def check():
+        tmp = db.model_chx()
+        if tmp == False:
+            term(termv)
+            print("\n\n\nDB -- > Modelo Inexistente, Creando")
+            sleep(0.5)
+            ems.main()
+        elif tmp == True:
+            term(termv)
+            print("\n\n\nDB --> Modelo existente, Omitiendo")
+            sleep(0.5)
+            ems.main()
+        else:
+            term(termv)
+            print(f"\n\nDB ==> **Se ha producido un error al intentar crear el modelo**\n\n{db.model_chx()}")
+            input('\nPresione ENTER para continuar...')
             
-if __name__ == '__main__': #when the file is running exec ts below
-    ems.main()
+if __name__ == '__main__':
+    ems.check()
