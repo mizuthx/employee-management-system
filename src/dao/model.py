@@ -6,6 +6,21 @@ WHERE TABLE_SCHEMA = DATABASE()
 AND TABLE_NAME IN (?, ?, ?, ?, ?);
 """)
 
+
+base_view:list = [
+    """CREATE VIEW v_empleados AS
+    SELECT 
+      e.id_empleado, 
+      CONCAT(e.primer_apellido, ' ', e.segundo_apellido, ' ', e.nombre) AS nombre_completo,
+      r.nombre AS rol,
+      e.telefono,
+      e.email,
+      e.inicio_contrato,
+      e.salario
+    FROM empleados e
+    INNER JOIN roles r ON r.id_rol = e.id_rol;
+   """,
+]
 base_insert:list = [
     """INSERT INTO roles (nombre) VALUES 
     ('Gerente'),
@@ -32,7 +47,7 @@ base:list = [
     """CREATE TABLE IF NOT EXISTS empleados
     (
       id_empleado      INT         NOT NULL AUTO_INCREMENT,
-      nombre           VARCHAR(20) NOT NULL,
+      nombres          VARCHAR(20) NOT NULL,
       primer_apellido  VARCHAR(20) NOT NULL,
       segundo_apellido VARCHAR(20) NULL    ,
       id_rol           INT         NOT NULL,
