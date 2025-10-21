@@ -107,23 +107,21 @@ class ems:
                 break
     @staticmethod
     def check():
-        if db.model_chx() == False:
+        tmp = db.model_chx()
+        if tmp == False:
             term(termv)
             print("\n\n\nDB -- > Modelo Inexistente, Creando")
             sleep(0.5)
             ems.main()
-        elif db.model_chx() == True:
+        elif tmp == True:
             term(termv)
             print("\n\n\nDB --> Modelo existente, Omitiendo")
             sleep(0.5)
             ems.main()
         else:
             term(termv)
-            print(f"""\n\n
-DB --> Se ha producido un error al intentar crear el modelo\n
-{db.model_chx()}
-""")
-            input('Presione ENTER para continuar...')
+            print(f"\n\nDB ==> **Se ha producido un error al intentar crear el modelo**\n\n{db.model_chx()}")
+            input('\nPresione ENTER para continuar...')
             
 if __name__ == '__main__':
     ems.check()
