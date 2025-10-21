@@ -26,7 +26,7 @@ class rdbms:
     def query(self, sql:str, data:tuple , row = None, cmt:bool = False):
         if cmt == False and row != None and row == int:
             self._cur.execute(sql,data)
-            return self.cur.fetchmany(row)
+            return self._cur.fetchmany(row)
         elif cmt == True and row == None:
             self._cur.execute(sql, data)
             self._cnx.commit()
@@ -52,7 +52,7 @@ db = rdbms(
     _host=getenv('HOST') or 'localhost',
     _user=getenv('USER') or 'root',
     _passwd=getenv('PASSWD') or '',
-    _database=getenv('DATABASE') or 'test',
+    _database=getenv('DATABASE') or '',
     _port=int(getenv('PORT') or '3306')
 )
 
