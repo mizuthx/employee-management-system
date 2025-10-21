@@ -17,7 +17,8 @@ class ems:
                 tmp = int(input(name + ': '))
                 return tmp
             except ValueError as e:
-                print(f"Entrada no valida \nERROR --> {e}")
+                term(termv)
+                print(f"Entrada no valida\n\n{e}")
                 sleep(2)
                 return None
         elif tipo == True:
@@ -25,7 +26,8 @@ class ems:
                 tmp = str(input(name + ': '))
                 return tmp
             except ValueError as e:
-                print(f"Entrada no valida \nERROR --> {e}")
+                term(termv)
+                print(f"Entrada no validan\n\n{e}")
                 sleep(2)
                 return None
     

@@ -49,11 +49,11 @@ class rdbms:
             return e
     
 db = rdbms(
-    _host=getenv('HOST') or 'localhost',
-    _user=getenv('USER') or 'root',
-    _passwd=getenv('PASSWD') or '',
-    _database=getenv('DATABASE') or '',
-    _port=int(getenv('PORT') or '3306')
+    _host= getenv('HOST') or 'localhost',
+    _user= getenv('NAME') or 'root',
+    _passwd= getenv('PASSWD') or '',
+    _database= getenv('DATABASE') or '',
+    _port= int(getenv('PORT') or '3306')
 )
 
 if __name__ == '__main__':
