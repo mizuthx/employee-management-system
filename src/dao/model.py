@@ -5,6 +5,21 @@ FROM information_schema.TABLES
 WHERE TABLE_SCHEMA = DATABASE() 
 AND TABLE_NAME IN (?, ?, ?, ?, ?);
 """)
+
+base_insert:list = [
+    """INSERT INTO roles (nombre) VALUES 
+    ('Gerente'),
+    ('Desarrollador'),
+    ('Analista'),
+    ('Recursos Humanos'),
+    ('Vendedor');""",
+    
+    """INSERT INTO departamentos (id_empleado, nombre, descripcion) VALUES
+    (1, 'Desarrollo Sostenible', 'Departamento enfocado en proyectos de energía renovable y sostenibilidad ambiental'),
+    (3, 'Investigación y Desarrollo', 'Innovación tecnológica y desarrollo de nuevos productos'),
+    (5, 'Ventas', 'Gestión comercial y relaciones con clientes'),
+    (4, 'Recursos Humanos', 'Administración del talento humano y bienestar laboral');""",
+]
     
 base:list = [
     """CREATE TABLE IF NOT EXISTS roles
