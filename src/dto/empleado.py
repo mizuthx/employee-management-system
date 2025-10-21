@@ -1,5 +1,5 @@
 class EmpleadoDTO:
-    def __init__(self, nombre:str, numero_tel:int, direccion:str, email:str, inicio_contrato, salario:int):
+    def __init__(self, nombre:str, numero_tel:int, direccion:str, email:str, inicio_contrato,salario:int):
         self.nombre = nombre
         self.numero_tel = numero_tel
         self.direccion = direccion
@@ -8,3 +8,7 @@ class EmpleadoDTO:
         self.salario = salario
     def __str__(self) -> str:
         return f"{self.nombre}"
+    
+class DepartamentoDTO:
+    def __init__(self, nombre:str, ):
+        self.nombre = nombre
