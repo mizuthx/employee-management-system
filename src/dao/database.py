@@ -6,11 +6,11 @@ load_dotenv(find_dotenv())
 
 class rdbms:
     def __init__(self, _host:str, _user:str, _passwd: str, _database:str ,_port:int):
-        self.host = _host
-        self.user = _user
-        self.passwd = _passwd
-        self.database = _database
-        self.port = _port
+        self._host = _host
+        self._user = _user
+        self._passwd = _passwd
+        self._database = _database
+        self._port = _port
         
         _conf:dict = {
             'host': _host,
