@@ -1,7 +1,7 @@
 import mariadb
 from os import getenv
 from dotenv import load_dotenv, find_dotenv
-from .model import base, base_chx
+from .model import base, base_chx, base_insert, base_views
 load_dotenv(find_dotenv())
 
 class rdbms:
@@ -44,16 +44,18 @@ class rdbms:
         try:
             self._cur.execute(base_chx, ('empleados', 'registros', 'proyectos', 'departamentos', 'roles')) # comprueba si existen las tablas de "modelo.erd"
             tmp = self._cur.fetchall()[0][0] # de una tupla con listas, se asigna el dato de la lista a la variable con doble indice -> ([0,]) -> [0,] -> 0
-            if tmp != 4:
+            
+            if tmp != 5:
+                # CREATE TABLES
                 for i in base:
                     self._cur.execute(i)
                 self._cnx.commit()
                 return False
-            elif tmp == 4:
+            elif tmp == 5:
                 print(f'Tablas encontradas: {tmp}')
                 return True
         except (mariadb.ProgrammingError, mariadb.OperationalError) as e:
-            return e
+            print(e)
     
 db = rdbms(
     _host= getenv('HOST') or 'localhost',
