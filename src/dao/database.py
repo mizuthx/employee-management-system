@@ -31,7 +31,7 @@ class rdbms:
         
     # Metodo pensado para hacer consultas desde una linea asi haciendo mas legible el CRUD,
     # este teniendo varias intrucciones dependiendo las nececidades del proyecto,
-    # por ahora exec(), fetch*(), commit(), close().
+    # por ahora execute(), fetch*(), commit(), close().
     def query(self, sql:str, data:tuple = () , row = None, cmt:bool = False):
         try:
             # Al usar query('SELECT * FROM table) retorna todas las columnas existentes
@@ -51,7 +51,7 @@ class rdbms:
                 self._cur.execute(sql, data)
                 self._cnx.commit()
                 self._cnx.close()
-            # En caso de errores automaticamente se cancelan las
+            # En caso de errores, automaticamente se cancelan las
             # transacciones pendientes
         except mariadb.Error as e:
             self._cnx.rollback()
