@@ -1,7 +1,7 @@
 import mariadb
 from os import getenv
 from dotenv import load_dotenv, find_dotenv
-from model import base, base_chx, base_insert, base_views
+from .model import base, base_chx, base_insert, base_views
 load_dotenv(find_dotenv())
 
 class rdbms:
