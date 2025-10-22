@@ -1,39 +1,53 @@
-from database import db
-
-from .database import db
+#from database import db -no se usa en el archivo
+#from .database import db -repetido
+from dao.Conexion import Conexion
 from ..dto.empleado import EmpleadoDTO
 import mariadb
 
+host = 'localhost'
+user = 'root'
+password = ''
+port = 3307
+db = 'gestion_empleados'
+#CRUD = CREATE, READ, UPDATE, DELETE
 class EmpleadoDAO:
     
-    @staticmethod
-    # para crear un nuevo empleado en la db 
-    def crear(empleado:EmpleadoDTO, id_departamento:int):
+    def CREATE(c):
+        con = None
         try:
+            con = Conexion(host, user, password, port, db)
             sql = """
             INSERT INTO empleados 
             (nombre, primer_apellido, segundo_apellido, telefono, email, inicio_contrato, salario, id_departamento)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-            """   
-            data = (
-                empleado.nombre,
-                empleado.primer_apellido,
-                empleado.segundo_apellido,
-                str(empleado.numero_tel),
-                empleado.email,
-                empleado.inicio_contrato,
-                empleado.salario,
-                id_departamento
+            """
+
+            params = (c.nombre, 
+                c.primer_apellido, 
+                c.segundo_apellido, 
+                c.telefono, 
+                c.email, 
+                c.inicio_contrato, 
+                c.salario, 
+                c.id_departamento,
             )
-            
-            db.query(sql, data, cmt=True)
-            return True, "Empleado creado exitosamente"
+            con.ejecuta_query(sql,params,cmt=True)
+            #con.commit(). no se usa porque lo hace el ejecuta_query
+            print("Datos ingresadooos!!!")
+            con.desconectar()
         except mariadb.IntegrityError as e:
-            db.rollback()
-            return False, f"Error de integridad: {e}"
+            #con.rollback no se usa porque ahora lo tiene ejecuta_query
+            print(f'no se pudo {e}')
         except Exception as e:
-            db.rollback()
-            return False, f"Error al crear empleado: {e}"
+            #con.rollback() de nuevo lo mismo que el anterior
+            print(f'no se pudo{e}')
+        finally:
+            #finally se ejecuta si o si despues de un try 
+            if con:   #if con: si con es True = se desconecta y printea que se cierra la conexion para ahorrar datos"
+                con.desconectar()
+                print("Conexión cerrada.")
+
+    #de aqui a abajo tengo que actualizar bien completo este crud mañana y los que falten 
     
     @staticmethod
     #listar a los empleados

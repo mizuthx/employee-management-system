@@ -5,4 +5,4 @@ class RegistroDTO:
         self.descripcion = descripcion
 
     def __str__(self) -> str:
-        return f"{self.nombre}"
+        return f"{self.fecha_inicio}"
