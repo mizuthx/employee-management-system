@@ -6,21 +6,58 @@ WHERE TABLE_SCHEMA = DATABASE()
 AND TABLE_NAME IN (?, ?, ?, ?, ?);
 """)
 
+base_views:list = [
+    """CREATE VIEW v_empleados AS
+    SELECT 
+      e.id_empleado, 
+      CONCAT(e.primer_apellido, ' ', e.segundo_apellido, ' ', e.nombre) AS nombre_completo,
+      r.nombre AS rol,
+      e.telefono,
+      e.email,
+      e.inicio_contrato,
+      e.salario
+    FROM empleados e
+    INNER JOIN roles r ON r.id_rol = e.id_rol;""",
+    
+    """CREATE VIEW v_departamentos AS
+    SELECT
+        d.id_departamento,
+        e.nombres AS empleado,
+        d.nombre,
+        d.descripcion
+    FROM departamentos d
+    INNER JOIN empleados e ON e.id_empleado = d.id_empleado;""",
+    
+    """CREATE VIEW v_proyectos AS
+    SELECT 
+        p.id_proyecto,
+        e.nombres as empleado,
+        p.nombre,
+        p.descripticion,
+        p.fecha_inicio
+    FROM proyectos p
+    INNER JOIN empleados e ON e.id_empleado = p.id_proyecto;""",
+    
+    """CREATE VIEW v_registros AS
+    SELECT 
+        r.id_registro,
+        e.nombres AS empleado,
+        r.fecha_inicio,
+        r.horas,
+        r.descripcion
+    FROM registros r
+    INNER JOIN empleados e ON e.id_empleado = r.id_registro;""" 
+]
+
 base_insert:list = [
     """INSERT INTO roles (nombre) VALUES 
     ('Gerente'),
     ('Desarrollador'),
     ('Analista'),
     ('Recursos Humanos'),
-    ('Vendedor');""",
-    
-    """INSERT INTO departamentos (id_empleado, nombre, descripcion) VALUES
-    (1, 'Desarrollo Sostenible', 'Departamento enfocado en proyectos de energía renovable y sostenibilidad ambiental'),
-    (3, 'Investigación y Desarrollo', 'Innovación tecnológica y desarrollo de nuevos productos'),
-    (5, 'Ventas', 'Gestión comercial y relaciones con clientes'),
-    (4, 'Recursos Humanos', 'Administración del talento humano y bienestar laboral');""",
+    ('Vendedor');"""
 ]
-    
+
 base:list = [
     """CREATE TABLE IF NOT EXISTS roles
     (
@@ -32,7 +69,7 @@ base:list = [
     """CREATE TABLE IF NOT EXISTS empleados
     (
       id_empleado      INT         NOT NULL AUTO_INCREMENT,
-      nombre           VARCHAR(20) NOT NULL,
+      nombres          VARCHAR(20) NOT NULL,
       primer_apellido  VARCHAR(20) NOT NULL,
       segundo_apellido VARCHAR(20) NULL    ,
       id_rol           INT         NOT NULL,
@@ -48,7 +85,7 @@ base:list = [
       id_departamento INT          NOT NULL AUTO_INCREMENT,
       id_empleado     INT          NOT NULL,
       nombre          VARCHAR(45)  NOT NULL,
-      descripcion     VARCHAR(500) NULL    ,
+      descripcion     VARCHAR(500) NULL,
       PRIMARY KEY (id_departamento)
     );""",
     
