@@ -37,20 +37,17 @@ class rdbms:
             # Al usar query('SELECT * FROM table) retorna todas las columnas existentes
             if cmt == False and row != None:
                 self._cur.execute(sql,data)
-                fetch = self._cur.fetchall()
-                self._cnx.close()
-                return fetch
+                return self._cur.fetchall()
             # Al usar query('SELECT * FROM table, row= n > 0) retorna las columnas con limites
             elif cmt == False and row == None and row == int:
                 self._cur.execute(sql, data)
-                fetch = self._cur.fetchmany(row or int())
-                self._cnx.close()
-                return fetch
-            # Al usar query('INSERT INTO table VALUES column (?, ? ,? ), (data, data, data), cmt = True) automaticamente se genera el commit
+                return self._cur.fetchmany(row or int())
+            # Al usar query('INSERT INTO table VALUES column (?, ? ,? ), (data, data, data ), cmt = True) automaticamente se genera el commit
             elif cmt == True and row == None:
                 self._cur.execute(sql, data)
                 self._cnx.commit()
-                self._cnx.close()
+                return self._cur.fetchall()
+                
             # En caso de errores, automaticamente se cancelan las
             # transacciones pendientes
         except mariadb.Error as e:
@@ -84,7 +81,7 @@ class rdbms:
 # Crea unica instancia 'db' para el uso de CRUD este mantiene
 # privado las credenciales de la base de datos con dotenv, asi 
 # tambien manteniendo los atributos ocultos en la clase, like
-#> print(db._password) ---> ERROR*
+#>>> print(db._password) ---> ERROR*
 db = rdbms(
     _host= getenv('HOST') or 'localhost',
     _user= getenv('NAME') or 'root',
