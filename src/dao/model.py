@@ -94,7 +94,7 @@ base:list = [
       id_proyecto   INT          NOT NULL AUTO_INCREMENT,
       id_empleado   INT          NOT NULL,
       nombre        VARCHAR(45)  NOT NULL,
-      descripticion VARCHAR(500) NOT NULL,
+      descripcion VARCHAR(500) NOT NULL,
       fecha_inicio  DATE         NOT NULL,
       PRIMARY KEY (id_proyecto)
     );""",
