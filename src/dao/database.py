@@ -1,7 +1,7 @@
 import mariadb
 from os import getenv
 from dotenv import load_dotenv, find_dotenv
-from .model import base, base_chx, base_insert, base_views
+from model import base, base_chx, base_insert, base_views
 load_dotenv(find_dotenv())
 
 class rdbms:
@@ -39,13 +39,13 @@ class rdbms:
                 self._cur.execute(sql,data)
                 fetch = self._cur.fetchall()
                 self._cnx.close()
-                return fetch
+                return tuple(fetch)
             # Al usar query('SELECT * FROM table, row= n > 0) retorna las columnas con limites
             elif cmt == False and row == None and row == int:
                 self._cur.execute(sql, data)
                 fetch = self._cur.fetchmany(row or int())
                 self._cnx.close()
-                return fetch
+                return tuple(fetch)
             # Al usar query('INSERT INTO table VALUES column (?, ? ,? ), (data, data, data), cmt = True) automaticamente se genera el commit
             elif cmt == True and row == None:
                 self._cur.execute(sql, data)
@@ -66,18 +66,14 @@ class rdbms:
     # Creacion automatica del modelo de base de datos, por restructurar!
     def model_chx(self):
         try:
-            self._cur.execute(base_chx, ('empleados', 'registros', 'proyectos', 'departamentos', 'roles')) # comprueba si existen las tablas de "modelo.erd"
-            tmp = self._cur.fetchall()[0][0] # de una tupla con listas, se asigna el dato de la lista a la variable con doble indice -> ([0,]) -> [0,] -> 0
-            
-            if tmp != 5:
-                # CREATE TABLES
+            self._cur.execute(base_chx, ('empleados', 'proyectos', 'roles', 'departamentos', 'registros'))
+            tables = self._cur.fetchone()[0]
+            if tables == 5:
+                print('Modelo existente --> Omitiendo')
+            elif tables != 5:
                 for i in base:
                     self._cur.execute(i)
                 self._cnx.commit()
-                return False
-            elif tmp == 5:
-                print(f'Tablas encontradas: {tmp}')
-                return True
         except (mariadb.ProgrammingError, mariadb.OperationalError) as e:
             print(e)
 
