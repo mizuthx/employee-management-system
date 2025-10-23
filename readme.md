@@ -1,3 +1,5 @@
+# Este proyecto está licenciado bajo GPL v3
+
 §  Registro de Empleados: 
 El sistema debe permitir a los administradores de recursos humanos registrar nuevos empleados. Cada empleado tendrá información personal como nombre, dirección, número de teléfono, dirección de correo electrónico, fecha de inicio de contrato y salario. Además, se debe asignar automáticamente un ID único a cada empleado.
  
