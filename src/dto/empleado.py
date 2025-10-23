@@ -1,5 +1,3 @@
-from datetime import date
-
 class EmpleadoDTO:
     def __init__(self, nombre:str, primer_apellido: str, segundo_apellido:str ,numero_tel:int, direccion:str, email:str, inicio_contrato,salario:int, id_departamento:int):
         self.nombre = nombre
