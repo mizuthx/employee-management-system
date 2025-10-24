@@ -40,7 +40,7 @@ class EmpleadoDAO:
             con.ejecuta_query(sql,params,cmt=True)
             #con.commit(). no se usa porque lo hace el ejecuta_query
             print("Datos ingresadooos!!!")
-            #con.desconectar(). no se usa porque lo hace el ejecuta_query 
+            #con.desconectar(). no se usa porque ahora se ejecuta al finalizar el def 
         except mariadb.IntegrityError as e:
             #con.rollback no se usa porque ahora lo tiene ejecuta_query
             print(f'no se pudo {e}')
