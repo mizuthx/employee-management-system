@@ -41,7 +41,7 @@ class rdbms:
                 self._cnx.close()
                 return fetch
             # Al usar query('SELECT * FROM table, row= n > 0) retorna las columnas con limites
-            elif cmt == False and row == None and row == int:
+            elif cmt == False and row == None and row == int: 
                 self._cur.execute(sql, data)
                 fetch = self._cur.fetchmany(row or int())
                 self._cnx.close()

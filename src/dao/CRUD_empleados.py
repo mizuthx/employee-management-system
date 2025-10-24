@@ -10,6 +10,11 @@ password = ''
 port = 3307
 db = 'gestion_empleados'
 #CRUD = CREATE, READ, UPDATE, DELETE
+
+
+
+
+
 class EmpleadoDAO:
 
     @staticmethod
@@ -20,7 +25,7 @@ class EmpleadoDAO:
             sql = """
             INSERT INTO empleados 
             (nombre, primer_apellido, segundo_apellido, telefono, email, inicio_contrato, salario, id_departamento)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?);
             """
 
             params = (c.nombre, 
