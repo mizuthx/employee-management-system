@@ -39,11 +39,11 @@ class rdbms:
     def query(self, sql:str, data:tuple = () , row = None, cmt:bool = False):
         try:
             # Al usar query('SELECT * FROM table) retorna todas las columnas existentes
-            if cmt == False and row != None:
+            if cmt == False and row == None:
                 self._cur.execute(sql,data)
                 return self._cur.fetchall()
             # Al usar query('SELECT * FROM table, row= n > 0) retorna las columnas con limites
-            elif cmt == False and row == None and row == int:
+            elif cmt == False and row != None and row == int:
                 self._cur.execute(sql, data)
                 return self._cur.fetchmany(row or int())
             # Al usar query('INSERT INTO table VALUES column (?, ? ,? ), (data, data, data ), cmt = True) automaticamente se genera el commit
