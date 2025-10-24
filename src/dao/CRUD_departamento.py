@@ -21,9 +21,24 @@ class DepartamentoDAO(DepartamentoDTO):
             print(tmp)
             input()
     
-    def eliminar_departamento(d):
-         tmp = db.query('DELETE FROM Departamentos (WHERE id_departamento) VALUES (?)',
+    @classmethod
+    def eliminar_departamento(cls, d):
+         tmp = db.query('DELETE FROM Departamentos where id_departamento = ?;',
                         d.id_departamento,
                         cmt=True)
+         print(tmp)
+         input()
+    
+    @classmethod
+    def actualizar_departamento(cls, d):
+         tmp = db.query('UPDATE Departamentos set (nombre, descipcion, id_usuario) VALUES (?,?,?);',
+                        d.nombre, d.descripcion, d.id_empelado,
+                        cmt=True)
+         print(tmp)
+         input()
+
+    @classmethod
+    def listar_departamento(cls, d):
+         tmp = db.query('SELECT * FROM departamentos')
          print(tmp)
          input()
