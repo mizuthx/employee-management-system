@@ -67,18 +67,14 @@ class rdbms:
     # Creacion automatica del modelo de base de datos, por restructurar!
     def model_chx(self):
         try:
-            self._cur.execute(base_chx, ('empleados', 'registros', 'proyectos', 'departamentos', 'roles')) # comprueba si existen las tablas de "modelo.erd"
-            tmp = self._cur.fetchall()[0][0] # de una tupla con listas, se asigna el dato de la lista a la variable con doble indice -> ([0,]) -> [0,] -> 0
-            
-            if tmp != 5:
-                # CREATE TABLES
+            self._cur.execute(base_chx, ('empleados', 'proyectos', 'roles', 'departamentos', 'registros'))
+            tables = self._cur.fetchone()[0]
+            if tables == 5:
+                print('Modelo existente --> Omitiendo')
+            elif tables != 5:
                 for i in base:
                     self._cur.execute(i)
                 self._cnx.commit()
-                return False
-            elif tmp == 5:
-                print(f'Tablas encontradas: {tmp}')
-                return True
         except (mariadb.ProgrammingError, mariadb.OperationalError) as e:
             print(e)
     def cnx_test(self):
