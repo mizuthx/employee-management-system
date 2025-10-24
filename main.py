@@ -16,7 +16,7 @@ class proyectos:
     def agregar(cls):
         nombre:str = '?'
         descripcion:str = '?'
-        fecha_inicio:list = ['DD', 'MM', 'AA']
+        fecha_inicio:list = ['DD', 'MM', 'AAAA']
 
         while True:
             term(termv)

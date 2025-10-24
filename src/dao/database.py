@@ -1,10 +1,11 @@
 import mariadb
 from os import getenv
 from dotenv import load_dotenv, find_dotenv
-from .model import base, base_chx, base_insert, base_views
+from model import base, base_chx, base_insert, base_views
 load_dotenv(find_dotenv())
 
 class rdbms:
+    _status:bool = False
     def __init__(self, _host:str, _user:str, _passwd: str, _database:str ,_port:int):
         self._host = _host
         self._user = _user
@@ -23,12 +24,15 @@ class rdbms:
         
         # Definiendo conexion al conector con el diccionario asignadolo
         # a _cnx, asi para poder usar '_cnx.close() _cnx.commit()' entre otros.
-        self._cnx = mariadb.connect(**_conf)
-        
-        # Definidiendo el cursor para las querys utilizando la anterior definida
-        # variable _cnx, queda tal que asi self._cur.*
-        self._cur = self._cnx.cursor()
-        
+        try:
+            self._cnx = mariadb.connect(**_conf)
+            # Definidiendo el cursor para las querys utilizando la anterior definida
+            # variable _cnx, queda tal que asi self._cur.*
+            self._cur = self._cnx.cursor()
+        except mariadb.OperationalError as e:
+            print('Se produjo un error al conectar la base de datos')
+            input('Presione ENTER para continuar...')
+
     # Metodo pensado para hacer consultas desde una linea asi haciendo mas legible el CRUD,
     # este teniendo varias intrucciones dependiendo las nececidades del proyecto,
     # por ahora execute(), fetch*(), commit(), close().
@@ -77,6 +81,9 @@ class rdbms:
                 return True
         except (mariadb.ProgrammingError, mariadb.OperationalError) as e:
             print(e)
+    def cnx_test(self):
+        tmp = self._cnx.server_info
+        print(tmp)
 
 # Crea unica instancia 'db' para el uso de CRUD este mantiene
 # privado las credenciales de la base de datos con dotenv, asi 
@@ -92,4 +99,4 @@ db = rdbms(
 
 # intruccion solo para debug, ignorar.
 if __name__ == '__main__':
-    db.model_chx()
+    pass
