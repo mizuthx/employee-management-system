@@ -30,7 +30,7 @@ class rdbms:
             # variable _cnx, queda tal que asi self._cur.*
             self._cur = self._cnx.cursor()
         except mariadb.OperationalError as e:
-            print('Se produjo un error al conectar la base de datos')
+            print('Se produjo un error en la base de datos')
             input('Presione ENTER para continuar...')
 
     # Metodo pensado para hacer consultas desde una linea asi haciendo mas legible el CRUD,

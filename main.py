@@ -23,28 +23,28 @@ class proyectos:
             for i in range(0,7):
                 if i == 1:
                     term(termv)
-                    print(menu)
-                    nombre = ems.x_input('Nombre', 1)
+                    print(menu) # type: ignore
+                    nombre = ems.x_input('Nombre', 1) or ''
                 elif i == 2:
                     term(termv)
-                    print(menu)
-                    descripcion = ems.x_input('Descripcion', 1)
+                    print(menu) # type: ignore
+                    descripcion = ems.x_input('Descripcion', 1) or ''
                 elif i == 3:
                     term(termv)
-                    print(menu)
+                    print(menu) # type: ignore
                     fecha_inicio[0] = ems.x_input('Dia')
                 elif i == 4:
                     term(termv)
-                    print(menu)
+                    print(menu) # type: ignore
                     fecha_inicio[1] = ems.x_input('Mes')
                 elif i == 5:
                     term(termv)
-                    print(menu)
+                    print(menu) # type: ignore
                     fecha_inicio[2] = ems.x_input('Año')
                 elif i == 6:
                     term(termv)
-                    print(menu)
-                    x = ems.x_input('Confirmar datos? (sS/nN)', 2).lower()
+                    print(menu) # type: ignore
+                    x = ems.x_input('Confirmar datos? (sS/nN)', 2).lower() # type: ignore
                     if x == 's':
                         p = ProyectoDTO(nombre, descripcion, fecha_inicio)
                         ProyectoDAO.agregar(p)
@@ -61,7 +61,7 @@ Fecha: {fecha_inicio[0]} / {fecha_inicio[1]} / {fecha_inicio[2]}
     
 class ems:
     @staticmethod
-    def x_input(name:str = 'Opcion', tipo:int = None):
+    def x_input(name:str = 'Opcion', tipo:int = None or int()):
         """
             x_input() default return INT()\n
             tipo = None: INT\n
