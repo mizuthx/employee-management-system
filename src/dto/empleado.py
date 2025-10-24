@@ -9,6 +9,5 @@ class EmpleadoDTO:
         self.inicio_contrato = inicio_contrato
         self.salario = salario
         self.id_departamento = id_departamento
-        
     def __str__(self) -> str:
         return f"{self.nombre}"
