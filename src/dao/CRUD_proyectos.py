@@ -12,8 +12,5 @@ class ProyectoDAO(ProyectoDTO):
     @classmethod
     def agregar(cls, p):
         tmp = db.query('INSERT INTO proyectos (id_empleado, nombre, descripcion, fecha_inicio) VALUES (?, ?, ?, ?)',
-                 (0, p.nombre, p.descripcion, date(p.fecha_inicio[2],p.fecha_inicio[1],p.fecha_inicio[0])),
-                 cmt= True)
-        print(tmp)
-        input()
-
+                 (0, p.nombre, p.descripcion, date(p.fecha_inicio[2],p.fecha_inicio[1],p.fecha_inicio[0])), cmt= True)
+        return tmp
