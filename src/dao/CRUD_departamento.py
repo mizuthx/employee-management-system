@@ -1,13 +1,7 @@
-from dao.Conexion import Conexion
 from ..dto.departamento import DepartamentoDTO
 import mariadb
 from .database import db
 
-host = 'localhost'
-user = 'root'
-password = ''
-port = 3307
-db = 'gestion_empleados'
 
 class DepartamentoDAO(DepartamentoDTO):
     def __init__(self, nombre, descripcion ,id_empleado):
@@ -15,7 +9,7 @@ class DepartamentoDAO(DepartamentoDTO):
 
     @classmethod
     def agregar_departamento(cls, d):
-            tmp = db.query('INSERT INTO Departamentos (nombre, descripcion ,id_usuario) VALUES (?, ? , ?)', 
+            tmp = db.query('INSERT INTO Departamentos (nombre, descripcion ,id_usuario) VALUES (?, ? , ?);', 
                            d.nombre, d.descripcion ,d.id_empleado,
                            cmt=True)
             print(tmp)
@@ -38,7 +32,7 @@ class DepartamentoDAO(DepartamentoDTO):
          input()
 
     @classmethod
-    def listar_departamento(cls, d):
+    def listar_departamento(cls):
          tmp = db.query('SELECT * FROM departamentos')
          print(tmp)
          input()
