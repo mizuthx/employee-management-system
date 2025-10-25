@@ -4,10 +4,12 @@ from ..dto.proyecto import ProyectoDTO
 
 class ProyectoDAO(ProyectoDTO):
     def __init__(self, nombre, descripcion, fecha_inicio):
-        super().__init__(nombre, descripcion, fecha_inicio)
+        self.nombre = nombre
+        self.descripcion = descripcion
+        self.fecha_inicio = fecha_inicio
         
     def __str__(self):
-        return super().__str__(self.nombre)
+        return f"{self.nombre}"
     
     @classmethod
     def agregar(cls, p):
