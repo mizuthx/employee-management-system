@@ -20,8 +20,8 @@ class EmpleadoDAO:
                 c.id_departamento), 
             cmt= True)
         
-    @classmethod
-    def listar_empleados(cls):
+    @staticmethod
+    def listar_empleados():
             resultados = db.query("""
             SELECT 
                 e.id_empleado,
@@ -53,8 +53,8 @@ class EmpleadoDAO:
                 empleados.append(empleado_info)
             return True, empleados
     
-    @classmethod
-    def buscar_empleado(id_empleado: int):
+    @staticmethod
+    def buscar_empleado(e):
             tmp = db.query("""
             SELECT 
                 e.id_empleado,
@@ -70,7 +70,7 @@ class EmpleadoDAO:
             FROM empleados e
             INNER JOIN departamentos d ON e.id_departamento = d.id_departamento
             WHERE e.id_empleado = ?
-            """, (id_empleado,), tmp= 1)
+            """, (e.id_empleado, ), tmp= 1)
             
             if tmp:
                 empleado_info = {
@@ -86,8 +86,8 @@ class EmpleadoDAO:
                     'departamento': tmp[9]
                 }
 
-    @classmethod
-    def actualizar(cls, e):
+    @staticmethod
+    def actualizar(e):
             try:
                 fecha_contrato = date(e.inicio_contrato[2], e.inicio_contrato[1], e.inicio_contrato[0])
             except ValueError:
@@ -109,41 +109,13 @@ class EmpleadoDAO:
 
     @classmethod
     def eliminar(cls, e):
-        
         db.query("DELETE FROM empleados WHERE id_empleado = ?", (e.id_empelado,))
-        con = None
-        try:
-            con = Conexion(host, user, password, port, db)
-            
-            sql = "DELETE FROM empleados WHERE id_empleado = ?"
-            
-            params = (id_empleado,)
-            
-            cursor = con.ejecuta_query(sql, params, cmt=True)
-            
-            # si borra algo avisa 
-            if cursor.tmpcount > 0:
-                return True, "Empleado eliminado exitosamente"
-            else:
-                return False, "Empleado no encontrado (0 filas eliminadas)"
-
-        except mariadb.IntegrityError as e:
-            return False, "No se puede eliminar: el empleado tiene registros asociados (Error de integridad)"
-        except Exception as e:
-            return False, f"Error al eliminar empleado: {e}"
         
-        finally:
-            if con:
-                con.desconectar()
-                print("Conexión (eliminar) cerrada.")
-
     @staticmethod
-    def listar_por_departamento(id_departamento: int):
-        con = None
-        try:
-            con = Conexion(host, user, password, port, db)
-            
-            sql = """
+    def listar_por_departamento(e):
+        
+        resultados = db.query(
+            """
             SELECT 
                 e.id_empleado,
                 e.nombre,
@@ -155,36 +127,23 @@ class EmpleadoDAO:
             FROM empleados e
             WHERE e.id_departamento = ?
             ORDER BY e.nombre, e.primer_apellido
-            """
-            
-            params = (id_departamento,)
-            
-            cursor = con.ejecuta_query(sql, params)
-            
-            resultados = cursor.fetchall()
-            
-            empleados = []
-            for tmp in resultados:
-                empleado_info = {
-                    'id': tmp[0],
-                    'nombre': tmp[1],
-                    'primer_apellido': tmp[2],
-                    'segundo_apellido': tmp[3] or '',
-                    'telefono': tmp[4],
-                    'email': tmp[5],
-                    'inicio_contrato': tmp[6],
-                    'salario': tmp[7],
-                    'id_departamento': tmp[8],
-                    'departamento': tmp[9]
-                }
-                empleados.append(empleado_info)
-            
-            return True, empleados
+            """,
+        (e.id_departamento, ))   
         
-        except Exception as e:
-            return False, f"Error al listar empleados por departamento: {e}"
-        
-        finally:
-            if con:
-                con.desconectar()
-                print("Conexión (listar_por_depto) cerrada.")
+        empleados = []
+        for tmp in resultados:
+            empleado_info = {
+                'id': tmp[0],
+                'nombre': tmp[1],
+                'primer_apellido': tmp[2],
+                'segundo_apellido': tmp[3] or '',
+                'telefono': tmp[4],
+                'email': tmp[5],
+                'inicio_contrato': tmp[6],
+                'salario': tmp[7],
+                'id_departamento': tmp[8],
+                'departamento': tmp[9]
+            }
+            empleados.append(empleado_info)
+            
+        return True, empleados
