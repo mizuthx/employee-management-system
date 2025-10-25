@@ -4,4 +4,6 @@
 #Hide cache files / folders
 src/dao/__pycache__
 src/dto/__pycache__
+src/ui/__pycache__
+src/utils/__pycache__
 src/__pycache__
